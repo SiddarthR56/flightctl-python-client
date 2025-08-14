@@ -130,6 +130,7 @@ Class | Method | HTTP request | Description
 *FleetApi* | [**replace_fleet**](docs/FleetApi.md#replace_fleet) | **PUT** /api/v1/fleets/{name} | 
 *FleetApi* | [**replace_fleet_status**](docs/FleetApi.md#replace_fleet_status) | **PUT** /api/v1/fleets/{name}/status | 
 *LabelApi* | [**list_labels**](docs/LabelApi.md#list_labels) | **GET** /api/v1/labels | 
+*OrganizationApi* | [**list_organizations**](docs/OrganizationApi.md#list_organizations) | **GET** /api/v1/organizations | List organizations
 *RepositoryApi* | [**create_repository**](docs/RepositoryApi.md#create_repository) | **POST** /api/v1/repositories | 
 *RepositoryApi* | [**delete_repository**](docs/RepositoryApi.md#delete_repository) | **DELETE** /api/v1/repositories/{name} | 
 *RepositoryApi* | [**get_repository**](docs/RepositoryApi.md#get_repository) | **GET** /api/v1/repositories/{name} | 
@@ -177,14 +178,19 @@ Class | Method | HTTP request | Description
  - [DeviceConsole](docs/DeviceConsole.md)
  - [DeviceDecommission](docs/DeviceDecommission.md)
  - [DeviceDecommissionTargetType](docs/DeviceDecommissionTargetType.md)
+ - [DeviceIntegrityCheckStatus](docs/DeviceIntegrityCheckStatus.md)
+ - [DeviceIntegrityCheckStatusType](docs/DeviceIntegrityCheckStatusType.md)
  - [DeviceIntegrityStatus](docs/DeviceIntegrityStatus.md)
  - [DeviceIntegrityStatusSummaryType](docs/DeviceIntegrityStatusSummaryType.md)
  - [DeviceLifecycleHookType](docs/DeviceLifecycleHookType.md)
  - [DeviceLifecycleStatus](docs/DeviceLifecycleStatus.md)
  - [DeviceLifecycleStatusType](docs/DeviceLifecycleStatusType.md)
  - [DeviceList](docs/DeviceList.md)
+ - [DeviceMultipleOwnersDetectedDetails](docs/DeviceMultipleOwnersDetectedDetails.md)
+ - [DeviceMultipleOwnersResolvedDetails](docs/DeviceMultipleOwnersResolvedDetails.md)
  - [DeviceOsSpec](docs/DeviceOsSpec.md)
  - [DeviceOsStatus](docs/DeviceOsStatus.md)
+ - [DeviceOwnershipChangedDetails](docs/DeviceOwnershipChangedDetails.md)
  - [DeviceResourceStatus](docs/DeviceResourceStatus.md)
  - [DeviceResourceStatusType](docs/DeviceResourceStatusType.md)
  - [DeviceSpec](docs/DeviceSpec.md)
@@ -220,6 +226,12 @@ Class | Method | HTTP request | Description
  - [FileSpec](docs/FileSpec.md)
  - [Fleet](docs/Fleet.md)
  - [FleetList](docs/FleetList.md)
+ - [FleetRolloutBatchCompletedDetails](docs/FleetRolloutBatchCompletedDetails.md)
+ - [FleetRolloutBatchDispatchedDetails](docs/FleetRolloutBatchDispatchedDetails.md)
+ - [FleetRolloutCompletedDetails](docs/FleetRolloutCompletedDetails.md)
+ - [FleetRolloutDeviceSelectedDetails](docs/FleetRolloutDeviceSelectedDetails.md)
+ - [FleetRolloutFailedDetails](docs/FleetRolloutFailedDetails.md)
+ - [FleetRolloutStartedDetails](docs/FleetRolloutStartedDetails.md)
  - [FleetRolloutStatus](docs/FleetRolloutStatus.md)
  - [FleetSpec](docs/FleetSpec.md)
  - [FleetSpecTemplate](docs/FleetSpecTemplate.md)
@@ -241,6 +253,7 @@ Class | Method | HTTP request | Description
  - [ImageVolumeSource](docs/ImageVolumeSource.md)
  - [InlineApplicationProviderSpec](docs/InlineApplicationProviderSpec.md)
  - [InlineConfigProviderSpec](docs/InlineConfigProviderSpec.md)
+ - [InternalTaskFailedDetails](docs/InternalTaskFailedDetails.md)
  - [KubernetesSecretProviderSpec](docs/KubernetesSecretProviderSpec.md)
  - [KubernetesSecretProviderSpecSecretRef](docs/KubernetesSecretProviderSpecSecretRef.md)
  - [LabelSelector](docs/LabelSelector.md)
@@ -249,7 +262,11 @@ Class | Method | HTTP request | Description
  - [MemoryResourceMonitorSpec](docs/MemoryResourceMonitorSpec.md)
  - [ObjectMeta](docs/ObjectMeta.md)
  - [ObjectReference](docs/ObjectReference.md)
+ - [Organization](docs/Organization.md)
+ - [OrganizationList](docs/OrganizationList.md)
+ - [OrganizationSpec](docs/OrganizationSpec.md)
  - [PatchRequestInner](docs/PatchRequestInner.md)
+ - [ReferencedRepositoryUpdatedDetails](docs/ReferencedRepositoryUpdatedDetails.md)
  - [RelativePath](docs/RelativePath.md)
  - [RepoSpecType](docs/RepoSpecType.md)
  - [Repository](docs/Repository.md)
@@ -262,6 +279,7 @@ Class | Method | HTTP request | Description
  - [ResourceMonitor](docs/ResourceMonitor.md)
  - [ResourceMonitorSpec](docs/ResourceMonitorSpec.md)
  - [ResourceSync](docs/ResourceSync.md)
+ - [ResourceSyncCompletedDetails](docs/ResourceSyncCompletedDetails.md)
  - [ResourceSyncList](docs/ResourceSyncList.md)
  - [ResourceSyncSpec](docs/ResourceSyncSpec.md)
  - [ResourceSyncStatus](docs/ResourceSyncStatus.md)
@@ -283,7 +301,19 @@ Class | Method | HTTP request | Description
 <a id="documentation-for-authorization"></a>
 ## Documentation For Authorization
 
-Endpoints do not require authorization.
+
+Authentication schemes defined for the API:
+<a id="bearerAuth"></a>
+### bearerAuth
+
+- **Type**: Bearer authentication (JWT)
+
+<a id="orgId"></a>
+### orgId
+
+- **Type**: API key
+- **API key parameter name**: org_id
+- **Location**: URL query string
 
 
 ## Author

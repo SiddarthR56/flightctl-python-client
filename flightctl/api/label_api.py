@@ -109,6 +109,7 @@ class LabelApi:
             '400': "Status",
             '401': "Status",
             '403': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -192,6 +193,7 @@ class LabelApi:
             '400': "Status",
             '401': "Status",
             '403': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -275,6 +277,7 @@ class LabelApi:
             '400': "Status",
             '401': "Status",
             '403': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
