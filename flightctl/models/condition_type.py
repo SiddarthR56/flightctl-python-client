@@ -33,7 +33,6 @@ class ConditionType(str, Enum):
     ACCESSIBLE = 'Accessible'
     RESOURCEPARSED = 'ResourceParsed'
     SYNCED = 'Synced'
-    OVERLAPPINGSELECTORS = 'OverlappingSelectors'
     VALID = 'Valid'
     ROLLOUTINPROGRESS = 'RolloutInProgress'
     UPDATING = 'Updating'

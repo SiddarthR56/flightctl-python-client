@@ -20,8 +20,6 @@ Type of condition in CamelCase.
 
 * `SYNCED` (value: `'Synced'`)
 
-* `OVERLAPPINGSELECTORS` (value: `'OverlappingSelectors'`)
-
 * `VALID` (value: `'Valid'`)
 
 * `ROLLOUTINPROGRESS` (value: `'RolloutInProgress'`)

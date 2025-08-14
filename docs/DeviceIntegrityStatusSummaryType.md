@@ -4,7 +4,7 @@ Status of the integrity of the device.
 
 ## Enum
 
-* `PASSED` (value: `'Passed'`)
+* `VERIFIED` (value: `'Verified'`)
 
 * `FAILED` (value: `'Failed'`)
 

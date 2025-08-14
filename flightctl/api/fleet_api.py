@@ -104,6 +104,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '409': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -176,6 +177,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '409': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -248,6 +250,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '409': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -391,6 +394,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -462,6 +466,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -533,6 +538,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -667,6 +673,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -742,6 +749,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -817,6 +825,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -954,6 +963,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -1029,6 +1039,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -1104,6 +1115,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -1239,6 +1251,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -1310,6 +1323,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -1381,6 +1395,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -1515,6 +1530,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -1590,6 +1606,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -1665,6 +1682,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -1814,6 +1832,7 @@ class FleetApi:
             '400': "Status",
             '401': "Status",
             '403': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -1901,6 +1920,7 @@ class FleetApi:
             '400': "Status",
             '401': "Status",
             '403': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -1988,6 +2008,7 @@ class FleetApi:
             '400': "Status",
             '401': "Status",
             '403': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -2156,6 +2177,7 @@ class FleetApi:
             '400': "Status",
             '401': "Status",
             '403': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -2243,6 +2265,7 @@ class FleetApi:
             '400': "Status",
             '401': "Status",
             '403': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -2330,6 +2353,7 @@ class FleetApi:
             '400': "Status",
             '401': "Status",
             '403': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -2486,6 +2510,7 @@ class FleetApi:
             '403': "Status",
             '404': "Status",
             '409': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -2563,6 +2588,7 @@ class FleetApi:
             '403': "Status",
             '404': "Status",
             '409': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -2640,6 +2666,7 @@ class FleetApi:
             '403': "Status",
             '404': "Status",
             '409': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -2792,6 +2819,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -2868,6 +2896,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -2944,6 +2973,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -3098,6 +3128,7 @@ class FleetApi:
             '404': "Status",
             '403': "Status",
             '409': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -3176,6 +3207,7 @@ class FleetApi:
             '404': "Status",
             '403': "Status",
             '409': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -3254,6 +3286,7 @@ class FleetApi:
             '404': "Status",
             '403': "Status",
             '409': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -3404,6 +3437,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -3479,6 +3513,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(
@@ -3554,6 +3589,7 @@ class FleetApi:
             '401': "Status",
             '403': "Status",
             '404': "Status",
+            '429': "Status",
             '503': "Status",
         }
         response_data = self.api_client.call_api(

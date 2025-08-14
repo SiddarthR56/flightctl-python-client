@@ -27,7 +27,7 @@ class DeviceIntegrityStatusSummaryType(str, Enum):
     """
     allowed enum values
     """
-    PASSED = 'Passed'
+    VERIFIED = 'Verified'
     FAILED = 'Failed'
     UNKNOWN = 'Unknown'
     UNSUPPORTED = 'Unsupported'
