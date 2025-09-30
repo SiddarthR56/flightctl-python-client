@@ -6,11 +6,15 @@ Type of condition in CamelCase.
 
 * `APPROVED` (value: `'Approved'`)
 
+* `TPMVERIFIED` (value: `'TPMVerified'`)
+
 * `APPROVED` (value: `'Approved'`)
 
 * `DENIED` (value: `'Denied'`)
 
 * `FAILED` (value: `'Failed'`)
+
+* `TPMVERIFIED` (value: `'TPMVerified'`)
 
 * `ACCESSIBLE` (value: `'Accessible'`)
 

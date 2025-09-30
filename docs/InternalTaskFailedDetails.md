@@ -6,10 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **detail_type** | **str** | The type of detail for discriminator purposes. | 
-**task_type** | **str** | The type of internal task that failed. | 
 **error_message** | **str** | The error message describing the failure. | 
 **retry_count** | **int** | Number of times the task has been retried. | [optional] 
-**task_parameters** | **Dict[str, str]** | Parameters needed to retry the task. | [optional] 
+**original_event** | [**Event**](Event.md) |  | 
 
 ## Example
 

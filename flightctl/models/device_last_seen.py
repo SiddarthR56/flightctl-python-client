@@ -18,19 +18,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from flightctl.models.image_pull_policy import ImagePullPolicy
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ImageVolumeSource(BaseModel):
+class DeviceLastSeen(BaseModel):
     """
-    Describes the source of an OCI-compliant image or artifact.
+    DeviceLastSeen represents the last seen timestamp of a device.
     """ # noqa: E501
-    reference: StrictStr = Field(description="Reference to an OCI-compliant image or artifact in a registry. This may be a container image or another type of OCI artifact, as long as it conforms to the OCI image specification.")
-    pull_policy: Optional[ImagePullPolicy] = Field(default=ImagePullPolicy.NUMBER_PullIfNotPresent, alias="pullPolicy")
-    __properties: ClassVar[List[str]] = ["reference", "pullPolicy"]
+    last_seen: datetime = Field(description="The last time the device was seen by the service.", alias="lastSeen")
+    __properties: ClassVar[List[str]] = ["lastSeen"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +49,7 @@ class ImageVolumeSource(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ImageVolumeSource from a JSON string"""
+        """Create an instance of DeviceLastSeen from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -75,7 +74,7 @@ class ImageVolumeSource(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ImageVolumeSource from a dict"""
+        """Create an instance of DeviceLastSeen from a dict"""
         if obj is None:
             return None
 
@@ -83,8 +82,7 @@ class ImageVolumeSource(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "reference": obj.get("reference"),
-            "pullPolicy": obj.get("pullPolicy") if obj.get("pullPolicy") is not None else ImagePullPolicy.NUMBER_PullIfNotPresent
+            "lastSeen": obj.get("lastSeen")
         })
         return _obj
 

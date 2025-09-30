@@ -14,10 +14,9 @@ Name | Type | Description | Notes
 **resolution_type** | **str** | How the conflict was resolved. | 
 **assigned_owner** | **str** | The fleet assigned as owner (null if no owner). | [optional] 
 **previous_matching_fleets** | **List[str]** | List of fleets that previously matched the device. | [optional] 
-**task_type** | **str** | The type of internal task that failed. | 
-**error_message** | **str** | The error message describing the failure. | 
-**retry_count** | **int** | Number of times the task has been retried. | [optional] 
-**task_parameters** | **Dict[str, str]** | Parameters needed to retry the task. | [optional] 
+**error_message** | **str** | The error message describing the permanent failure. | 
+**retry_count** | **int** | Number of times the task was retried before being marked as permanently failed. | 
+**original_event** | [**Event**](Event.md) |  | 
 **commit_hash** | **str** | Hash of the last commit. | 
 **change_count** | **int** | Number of changes introduced by this ResourceSync update. | 
 **error_count** | **int** | Number of errors encountered by this ResourceSync update. | 

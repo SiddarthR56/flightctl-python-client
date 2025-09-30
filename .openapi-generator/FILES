@@ -14,6 +14,7 @@ docs/ApplicationVolumeProviderSpec.md
 docs/ApplicationVolumeStatus.md
 docs/ApplicationsSummaryStatusType.md
 docs/AuthConfig.md
+docs/AuthOrganizationsConfig.md
 docs/AuthenticationApi.md
 docs/Batch.md
 docs/BatchLimit.md
@@ -40,6 +41,7 @@ docs/DeviceIntegrityCheckStatus.md
 docs/DeviceIntegrityCheckStatusType.md
 docs/DeviceIntegrityStatus.md
 docs/DeviceIntegrityStatusSummaryType.md
+docs/DeviceLastSeen.md
 docs/DeviceLifecycleHookType.md
 docs/DeviceLifecycleStatus.md
 docs/DeviceLifecycleStatusType.md
@@ -51,6 +53,8 @@ docs/DeviceOsStatus.md
 docs/DeviceOwnershipChangedDetails.md
 docs/DeviceResourceStatus.md
 docs/DeviceResourceStatusType.md
+docs/DeviceResumeRequest.md
+docs/DeviceResumeResponse.md
 docs/DeviceSpec.md
 docs/DeviceSpecSystemd.md
 docs/DeviceStatus.md
@@ -60,6 +64,7 @@ docs/DeviceSystemInfo.md
 docs/DeviceUpdatePolicySpec.md
 docs/DeviceUpdatedStatus.md
 docs/DeviceUpdatedStatusType.md
+docs/DeviceactionsApi.md
 docs/DevicesSummary.md
 docs/DiskResourceMonitorSpec.md
 docs/DisruptionBudget.md
@@ -115,6 +120,7 @@ docs/ImageVolumeSource.md
 docs/InlineApplicationProviderSpec.md
 docs/InlineConfigProviderSpec.md
 docs/InternalTaskFailedDetails.md
+docs/InternalTaskPermanentlyFailedDetails.md
 docs/KubernetesSecretProviderSpec.md
 docs/KubernetesSecretProviderSpecSecretRef.md
 docs/LabelApi.md
@@ -167,6 +173,7 @@ flightctl/api/__init__.py
 flightctl/api/authentication_api.py
 flightctl/api/certificatesigningrequest_api.py
 flightctl/api/device_api.py
+flightctl/api/deviceactions_api.py
 flightctl/api/enrollmentrequest_api.py
 flightctl/api/event_api.py
 flightctl/api/fleet_api.py
@@ -191,6 +198,7 @@ flightctl/models/application_volume_provider_spec.py
 flightctl/models/application_volume_status.py
 flightctl/models/applications_summary_status_type.py
 flightctl/models/auth_config.py
+flightctl/models/auth_organizations_config.py
 flightctl/models/batch.py
 flightctl/models/batch_limit.py
 flightctl/models/batch_sequence.py
@@ -214,6 +222,7 @@ flightctl/models/device_integrity_check_status.py
 flightctl/models/device_integrity_check_status_type.py
 flightctl/models/device_integrity_status.py
 flightctl/models/device_integrity_status_summary_type.py
+flightctl/models/device_last_seen.py
 flightctl/models/device_lifecycle_hook_type.py
 flightctl/models/device_lifecycle_status.py
 flightctl/models/device_lifecycle_status_type.py
@@ -225,6 +234,8 @@ flightctl/models/device_os_status.py
 flightctl/models/device_ownership_changed_details.py
 flightctl/models/device_resource_status.py
 flightctl/models/device_resource_status_type.py
+flightctl/models/device_resume_request.py
+flightctl/models/device_resume_response.py
 flightctl/models/device_spec.py
 flightctl/models/device_spec_systemd.py
 flightctl/models/device_status.py
@@ -286,6 +297,7 @@ flightctl/models/image_volume_source.py
 flightctl/models/inline_application_provider_spec.py
 flightctl/models/inline_config_provider_spec.py
 flightctl/models/internal_task_failed_details.py
+flightctl/models/internal_task_permanently_failed_details.py
 flightctl/models/kubernetes_secret_provider_spec.py
 flightctl/models/kubernetes_secret_provider_spec_secret_ref.py
 flightctl/models/label_selector.py
@@ -337,22 +349,10 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_device_integrity_check_status.py
-test/test_device_integrity_check_status_type.py
-test/test_device_multiple_owners_detected_details.py
-test/test_device_multiple_owners_resolved_details.py
-test/test_device_ownership_changed_details.py
-test/test_fleet_rollout_batch_completed_details.py
-test/test_fleet_rollout_batch_dispatched_details.py
-test/test_fleet_rollout_completed_details.py
-test/test_fleet_rollout_device_selected_details.py
-test/test_fleet_rollout_failed_details.py
-test/test_fleet_rollout_started_details.py
-test/test_internal_task_failed_details.py
-test/test_organization.py
-test/test_organization_api.py
-test/test_organization_list.py
-test/test_organization_spec.py
-test/test_referenced_repository_updated_details.py
-test/test_resource_sync_completed_details.py
+test/test_auth_organizations_config.py
+test/test_device_last_seen.py
+test/test_device_resume_request.py
+test/test_device_resume_response.py
+test/test_deviceactions_api.py
+test/test_internal_task_permanently_failed_details.py
 tox.ini

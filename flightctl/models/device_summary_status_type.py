@@ -33,6 +33,8 @@ class DeviceSummaryStatusType(str, Enum):
     REBOOTING = 'Rebooting'
     POWEREDOFF = 'PoweredOff'
     UNKNOWN = 'Unknown'
+    AWAITINGRECONNECT = 'AwaitingReconnect'
+    CONFLICTPAUSED = 'ConflictPaused'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

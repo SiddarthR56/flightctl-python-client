@@ -18,19 +18,27 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from flightctl.models.image_pull_policy import ImagePullPolicy
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ImageVolumeSource(BaseModel):
+class InternalTaskPermanentlyFailedDetails(BaseModel):
     """
-    Describes the source of an OCI-compliant image or artifact.
+    InternalTaskPermanentlyFailedDetails
     """ # noqa: E501
-    reference: StrictStr = Field(description="Reference to an OCI-compliant image or artifact in a registry. This may be a container image or another type of OCI artifact, as long as it conforms to the OCI image specification.")
-    pull_policy: Optional[ImagePullPolicy] = Field(default=ImagePullPolicy.NUMBER_PullIfNotPresent, alias="pullPolicy")
-    __properties: ClassVar[List[str]] = ["reference", "pullPolicy"]
+    detail_type: StrictStr = Field(description="The type of detail for discriminator purposes.", alias="detailType")
+    error_message: StrictStr = Field(description="The error message describing the permanent failure.", alias="errorMessage")
+    retry_count: StrictInt = Field(description="Number of times the task was retried before being marked as permanently failed.", alias="retryCount")
+    original_event: Event = Field(alias="originalEvent")
+    __properties: ClassVar[List[str]] = ["detailType", "errorMessage", "retryCount", "originalEvent"]
+
+    @field_validator('detail_type')
+    def detail_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['InternalTaskPermanentlyFailed']):
+            raise ValueError("must be one of enum values ('InternalTaskPermanentlyFailed')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +58,7 @@ class ImageVolumeSource(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ImageVolumeSource from a JSON string"""
+        """Create an instance of InternalTaskPermanentlyFailedDetails from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,11 +79,14 @@ class ImageVolumeSource(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of original_event
+        if self.original_event:
+            _dict['originalEvent'] = self.original_event.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ImageVolumeSource from a dict"""
+        """Create an instance of InternalTaskPermanentlyFailedDetails from a dict"""
         if obj is None:
             return None
 
@@ -83,9 +94,14 @@ class ImageVolumeSource(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "reference": obj.get("reference"),
-            "pullPolicy": obj.get("pullPolicy") if obj.get("pullPolicy") is not None else ImagePullPolicy.NUMBER_PullIfNotPresent
+            "detailType": obj.get("detailType"),
+            "errorMessage": obj.get("errorMessage"),
+            "retryCount": obj.get("retryCount"),
+            "originalEvent": Event.from_dict(obj["originalEvent"]) if obj.get("originalEvent") is not None else None
         })
         return _obj
 
+from flightctl.models.event import Event
+# TODO: Rewrite to not use raise_errors
+InternalTaskPermanentlyFailedDetails.model_rebuild(raise_errors=False)
 

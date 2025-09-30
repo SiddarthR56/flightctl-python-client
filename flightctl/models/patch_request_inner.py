@@ -35,8 +35,8 @@ class PatchRequestInner(BaseModel):
     @field_validator('op')
     def op_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['add', 'replace', 'remove']):
-            raise ValueError("must be one of enum values ('add', 'replace', 'remove')")
+        if value not in set(['add', 'replace', 'remove', 'test']):
+            raise ValueError("must be one of enum values ('add', 'replace', 'remove', 'test')")
         return value
 
     model_config = ConfigDict(

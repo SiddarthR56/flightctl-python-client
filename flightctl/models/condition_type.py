@@ -28,8 +28,12 @@ class ConditionType(str, Enum):
     allowed enum values
     """
     APPROVED = 'Approved'
+    TPMVERIFIED = 'TPMVerified'
+    APPROVED = 'Approved'
     DENIED = 'Denied'
     FAILED = 'Failed'
+    TPMVERIFIED = 'TPMVerified'
+    ACCESSIBLE = 'Accessible'
     ACCESSIBLE = 'Accessible'
     RESOURCEPARSED = 'ResourceParsed'
     SYNCED = 'Synced'

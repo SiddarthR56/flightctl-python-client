@@ -28,11 +28,10 @@ class InternalTaskFailedDetails(BaseModel):
     InternalTaskFailedDetails
     """ # noqa: E501
     detail_type: StrictStr = Field(description="The type of detail for discriminator purposes.", alias="detailType")
-    task_type: StrictStr = Field(description="The type of internal task that failed.", alias="taskType")
     error_message: StrictStr = Field(description="The error message describing the failure.", alias="errorMessage")
     retry_count: Optional[StrictInt] = Field(default=None, description="Number of times the task has been retried.", alias="retryCount")
-    task_parameters: Optional[Dict[str, StrictStr]] = Field(default=None, description="Parameters needed to retry the task.", alias="taskParameters")
-    __properties: ClassVar[List[str]] = ["detailType", "taskType", "errorMessage", "retryCount", "taskParameters"]
+    original_event: Event = Field(alias="originalEvent")
+    __properties: ClassVar[List[str]] = ["detailType", "errorMessage", "retryCount", "originalEvent"]
 
     @field_validator('detail_type')
     def detail_type_validate_enum(cls, value):
@@ -80,6 +79,9 @@ class InternalTaskFailedDetails(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of original_event
+        if self.original_event:
+            _dict['originalEvent'] = self.original_event.to_dict()
         return _dict
 
     @classmethod
@@ -93,11 +95,13 @@ class InternalTaskFailedDetails(BaseModel):
 
         _obj = cls.model_validate({
             "detailType": obj.get("detailType"),
-            "taskType": obj.get("taskType"),
             "errorMessage": obj.get("errorMessage"),
             "retryCount": obj.get("retryCount"),
-            "taskParameters": obj.get("taskParameters")
+            "originalEvent": Event.from_dict(obj["originalEvent"]) if obj.get("originalEvent") is not None else None
         })
         return _obj
 
+from flightctl.models.event import Event
+# TODO: Rewrite to not use raise_errors
+InternalTaskFailedDetails.model_rebuild(raise_errors=False)
 
