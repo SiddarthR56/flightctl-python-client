@@ -349,10 +349,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_auth_organizations_config.py
-test/test_device_last_seen.py
-test/test_device_resume_request.py
-test/test_device_resume_response.py
-test/test_deviceactions_api.py
-test/test_internal_task_permanently_failed_details.py
 tox.ini
