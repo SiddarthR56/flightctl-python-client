@@ -29,11 +29,8 @@ class ConditionType(str, Enum):
     """
     APPROVED = 'Approved'
     TPMVERIFIED = 'TPMVerified'
-    APPROVED = 'Approved'
     DENIED = 'Denied'
     FAILED = 'Failed'
-    TPMVERIFIED = 'TPMVerified'
-    ACCESSIBLE = 'Accessible'
     ACCESSIBLE = 'Accessible'
     RESOURCEPARSED = 'ResourceParsed'
     SYNCED = 'Synced'
