@@ -4,6 +4,7 @@
 from flightctl.api.authentication_api import AuthenticationApi
 from flightctl.api.certificatesigningrequest_api import CertificatesigningrequestApi
 from flightctl.api.device_api import DeviceApi
+from flightctl.api.deviceactions_api import DeviceactionsApi
 from flightctl.api.enrollmentrequest_api import EnrollmentrequestApi
 from flightctl.api.event_api import EventApi
 from flightctl.api.fleet_api import FleetApi

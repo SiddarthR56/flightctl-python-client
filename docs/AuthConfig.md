@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **auth_type** | **str** | Auth type. | 
 **auth_url** | **str** | Auth URL. | 
+**auth_organizations_config** | [**AuthOrganizationsConfig**](AuthOrganizationsConfig.md) |  | 
 
 ## Example
 

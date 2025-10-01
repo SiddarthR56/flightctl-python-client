@@ -21,6 +21,7 @@ __version__ = "1.0.0"
 from flightctl.api.authentication_api import AuthenticationApi
 from flightctl.api.certificatesigningrequest_api import CertificatesigningrequestApi
 from flightctl.api.device_api import DeviceApi
+from flightctl.api.deviceactions_api import DeviceactionsApi
 from flightctl.api.enrollmentrequest_api import EnrollmentrequestApi
 from flightctl.api.event_api import EventApi
 from flightctl.api.fleet_api import FleetApi
@@ -53,6 +54,7 @@ from flightctl.models.application_volume_provider_spec import ApplicationVolumeP
 from flightctl.models.application_volume_status import ApplicationVolumeStatus
 from flightctl.models.applications_summary_status_type import ApplicationsSummaryStatusType
 from flightctl.models.auth_config import AuthConfig
+from flightctl.models.auth_organizations_config import AuthOrganizationsConfig
 from flightctl.models.batch import Batch
 from flightctl.models.batch_limit import BatchLimit
 from flightctl.models.batch_sequence import BatchSequence
@@ -76,6 +78,7 @@ from flightctl.models.device_integrity_check_status import DeviceIntegrityCheckS
 from flightctl.models.device_integrity_check_status_type import DeviceIntegrityCheckStatusType
 from flightctl.models.device_integrity_status import DeviceIntegrityStatus
 from flightctl.models.device_integrity_status_summary_type import DeviceIntegrityStatusSummaryType
+from flightctl.models.device_last_seen import DeviceLastSeen
 from flightctl.models.device_lifecycle_hook_type import DeviceLifecycleHookType
 from flightctl.models.device_lifecycle_status import DeviceLifecycleStatus
 from flightctl.models.device_lifecycle_status_type import DeviceLifecycleStatusType
@@ -87,6 +90,8 @@ from flightctl.models.device_os_status import DeviceOsStatus
 from flightctl.models.device_ownership_changed_details import DeviceOwnershipChangedDetails
 from flightctl.models.device_resource_status import DeviceResourceStatus
 from flightctl.models.device_resource_status_type import DeviceResourceStatusType
+from flightctl.models.device_resume_request import DeviceResumeRequest
+from flightctl.models.device_resume_response import DeviceResumeResponse
 from flightctl.models.device_spec import DeviceSpec
 from flightctl.models.device_spec_systemd import DeviceSpecSystemd
 from flightctl.models.device_status import DeviceStatus
@@ -148,6 +153,7 @@ from flightctl.models.image_volume_source import ImageVolumeSource
 from flightctl.models.inline_application_provider_spec import InlineApplicationProviderSpec
 from flightctl.models.inline_config_provider_spec import InlineConfigProviderSpec
 from flightctl.models.internal_task_failed_details import InternalTaskFailedDetails
+from flightctl.models.internal_task_permanently_failed_details import InternalTaskPermanentlyFailedDetails
 from flightctl.models.kubernetes_secret_provider_spec import KubernetesSecretProviderSpec
 from flightctl.models.kubernetes_secret_provider_spec_secret_ref import KubernetesSecretProviderSpecSecretRef
 from flightctl.models.label_selector import LabelSelector

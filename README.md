@@ -98,6 +98,7 @@ Class | Method | HTTP request | Description
 *DeviceApi* | [**decommission_device**](docs/DeviceApi.md#decommission_device) | **PUT** /api/v1/devices/{name}/decommission | 
 *DeviceApi* | [**delete_device**](docs/DeviceApi.md#delete_device) | **DELETE** /api/v1/devices/{name} | 
 *DeviceApi* | [**get_device**](docs/DeviceApi.md#get_device) | **GET** /api/v1/devices/{name} | 
+*DeviceApi* | [**get_device_last_seen**](docs/DeviceApi.md#get_device_last_seen) | **GET** /api/v1/devices/{name}/lastseen | 
 *DeviceApi* | [**get_device_status**](docs/DeviceApi.md#get_device_status) | **GET** /api/v1/devices/{name}/status | 
 *DeviceApi* | [**get_rendered_device**](docs/DeviceApi.md#get_rendered_device) | **GET** /api/v1/devices/{name}/rendered | 
 *DeviceApi* | [**list_devices**](docs/DeviceApi.md#list_devices) | **GET** /api/v1/devices | 
@@ -105,6 +106,7 @@ Class | Method | HTTP request | Description
 *DeviceApi* | [**patch_device_status**](docs/DeviceApi.md#patch_device_status) | **PATCH** /api/v1/devices/{name}/status | 
 *DeviceApi* | [**replace_device**](docs/DeviceApi.md#replace_device) | **PUT** /api/v1/devices/{name} | 
 *DeviceApi* | [**replace_device_status**](docs/DeviceApi.md#replace_device_status) | **PUT** /api/v1/devices/{name}/status | 
+*DeviceactionsApi* | [**resume_devices**](docs/DeviceactionsApi.md#resume_devices) | **POST** /api/v1/deviceactions/resume | 
 *EnrollmentrequestApi* | [**approve_enrollment_request**](docs/EnrollmentrequestApi.md#approve_enrollment_request) | **PUT** /api/v1/enrollmentrequests/{name}/approval | 
 *EnrollmentrequestApi* | [**create_enrollment_request**](docs/EnrollmentrequestApi.md#create_enrollment_request) | **POST** /api/v1/enrollmentrequests | 
 *EnrollmentrequestApi* | [**delete_enrollment_request**](docs/EnrollmentrequestApi.md#delete_enrollment_request) | **DELETE** /api/v1/enrollmentrequests/{name} | 
@@ -159,6 +161,7 @@ Class | Method | HTTP request | Description
  - [ApplicationVolumeStatus](docs/ApplicationVolumeStatus.md)
  - [ApplicationsSummaryStatusType](docs/ApplicationsSummaryStatusType.md)
  - [AuthConfig](docs/AuthConfig.md)
+ - [AuthOrganizationsConfig](docs/AuthOrganizationsConfig.md)
  - [Batch](docs/Batch.md)
  - [BatchLimit](docs/BatchLimit.md)
  - [BatchSequence](docs/BatchSequence.md)
@@ -182,6 +185,7 @@ Class | Method | HTTP request | Description
  - [DeviceIntegrityCheckStatusType](docs/DeviceIntegrityCheckStatusType.md)
  - [DeviceIntegrityStatus](docs/DeviceIntegrityStatus.md)
  - [DeviceIntegrityStatusSummaryType](docs/DeviceIntegrityStatusSummaryType.md)
+ - [DeviceLastSeen](docs/DeviceLastSeen.md)
  - [DeviceLifecycleHookType](docs/DeviceLifecycleHookType.md)
  - [DeviceLifecycleStatus](docs/DeviceLifecycleStatus.md)
  - [DeviceLifecycleStatusType](docs/DeviceLifecycleStatusType.md)
@@ -193,6 +197,8 @@ Class | Method | HTTP request | Description
  - [DeviceOwnershipChangedDetails](docs/DeviceOwnershipChangedDetails.md)
  - [DeviceResourceStatus](docs/DeviceResourceStatus.md)
  - [DeviceResourceStatusType](docs/DeviceResourceStatusType.md)
+ - [DeviceResumeRequest](docs/DeviceResumeRequest.md)
+ - [DeviceResumeResponse](docs/DeviceResumeResponse.md)
  - [DeviceSpec](docs/DeviceSpec.md)
  - [DeviceSpecSystemd](docs/DeviceSpecSystemd.md)
  - [DeviceStatus](docs/DeviceStatus.md)
@@ -254,6 +260,7 @@ Class | Method | HTTP request | Description
  - [InlineApplicationProviderSpec](docs/InlineApplicationProviderSpec.md)
  - [InlineConfigProviderSpec](docs/InlineConfigProviderSpec.md)
  - [InternalTaskFailedDetails](docs/InternalTaskFailedDetails.md)
+ - [InternalTaskPermanentlyFailedDetails](docs/InternalTaskPermanentlyFailedDetails.md)
  - [KubernetesSecretProviderSpec](docs/KubernetesSecretProviderSpec.md)
  - [KubernetesSecretProviderSpecSecretRef](docs/KubernetesSecretProviderSpecSecretRef.md)
  - [LabelSelector](docs/LabelSelector.md)

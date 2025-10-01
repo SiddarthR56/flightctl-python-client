@@ -20,7 +20,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from flightctl.models.condition import Condition
 from flightctl.models.device_application_status import DeviceApplicationStatus
 from flightctl.models.device_applications_summary_status import DeviceApplicationsSummaryStatus
@@ -49,7 +49,7 @@ class DeviceStatus(BaseModel):
     os: DeviceOsStatus
     updated: DeviceUpdatedStatus
     summary: DeviceSummaryStatus
-    last_seen: datetime = Field(description="The last time the device was seen by the service.", alias="lastSeen")
+    last_seen: Optional[datetime] = Field(default=None, description="The last time the device was seen by the service (NOTE: this property is not returned by the API).", alias="lastSeen")
     lifecycle: DeviceLifecycleStatus
     __properties: ClassVar[List[str]] = ["conditions", "systemInfo", "applications", "applicationsSummary", "resources", "integrity", "config", "os", "updated", "summary", "lastSeen", "lifecycle"]
 

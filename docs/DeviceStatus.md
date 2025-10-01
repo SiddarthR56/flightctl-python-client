@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **os** | [**DeviceOsStatus**](DeviceOsStatus.md) |  | 
 **updated** | [**DeviceUpdatedStatus**](DeviceUpdatedStatus.md) |  | 
 **summary** | [**DeviceSummaryStatus**](DeviceSummaryStatus.md) |  | 
-**last_seen** | **datetime** | The last time the device was seen by the service. | 
+**last_seen** | **datetime** | The last time the device was seen by the service (NOTE: this property is not returned by the API). | [optional] 
 **lifecycle** | [**DeviceLifecycleStatus**](DeviceLifecycleStatus.md) |  | 
 
 ## Example

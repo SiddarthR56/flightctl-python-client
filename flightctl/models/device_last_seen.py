@@ -18,20 +18,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List
-from flightctl.models.auth_organizations_config import AuthOrganizationsConfig
 from typing import Optional, Set
 from typing_extensions import Self
 
-class AuthConfig(BaseModel):
+class DeviceLastSeen(BaseModel):
     """
-    Auth config.
+    DeviceLastSeen represents the last seen timestamp of a device.
     """ # noqa: E501
-    auth_type: StrictStr = Field(description="Auth type.", alias="authType")
-    auth_url: StrictStr = Field(description="Auth URL.", alias="authURL")
-    auth_organizations_config: AuthOrganizationsConfig = Field(alias="authOrganizationsConfig")
-    __properties: ClassVar[List[str]] = ["authType", "authURL", "authOrganizationsConfig"]
+    last_seen: datetime = Field(description="The last time the device was seen by the service.", alias="lastSeen")
+    __properties: ClassVar[List[str]] = ["lastSeen"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +49,7 @@ class AuthConfig(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AuthConfig from a JSON string"""
+        """Create an instance of DeviceLastSeen from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,14 +70,11 @@ class AuthConfig(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of auth_organizations_config
-        if self.auth_organizations_config:
-            _dict['authOrganizationsConfig'] = self.auth_organizations_config.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AuthConfig from a dict"""
+        """Create an instance of DeviceLastSeen from a dict"""
         if obj is None:
             return None
 
@@ -87,9 +82,7 @@ class AuthConfig(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "authType": obj.get("authType"),
-            "authURL": obj.get("authURL"),
-            "authOrganizationsConfig": AuthOrganizationsConfig.from_dict(obj["authOrganizationsConfig"]) if obj.get("authOrganizationsConfig") is not None else None
+            "lastSeen": obj.get("lastSeen")
         })
         return _obj
 

@@ -19,19 +19,17 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
-from flightctl.models.auth_organizations_config import AuthOrganizationsConfig
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class AuthConfig(BaseModel):
+class DeviceResumeRequest(BaseModel):
     """
-    Auth config.
+    Request to resume devices based on label selector and/or field selector. At least one selector must be provided.
     """ # noqa: E501
-    auth_type: StrictStr = Field(description="Auth type.", alias="authType")
-    auth_url: StrictStr = Field(description="Auth URL.", alias="authURL")
-    auth_organizations_config: AuthOrganizationsConfig = Field(alias="authOrganizationsConfig")
-    __properties: ClassVar[List[str]] = ["authType", "authURL", "authOrganizationsConfig"]
+    label_selector: Optional[StrictStr] = Field(default=None, description="A selector to restrict the list of devices to resume by their labels. Uses the same format as Kubernetes label selectors (e.g., \"key1=value1,key2!=value2\").", alias="labelSelector")
+    field_selector: Optional[StrictStr] = Field(default=None, description="A selector to restrict the list of devices to resume by their fields. Uses the same format as Kubernetes field selectors (e.g., \"metadata.name=device1,status.phase!=Pending\").", alias="fieldSelector")
+    __properties: ClassVar[List[str]] = []
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +49,7 @@ class AuthConfig(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AuthConfig from a JSON string"""
+        """Create an instance of DeviceResumeRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,14 +70,11 @@ class AuthConfig(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of auth_organizations_config
-        if self.auth_organizations_config:
-            _dict['authOrganizationsConfig'] = self.auth_organizations_config.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AuthConfig from a dict"""
+        """Create an instance of DeviceResumeRequest from a dict"""
         if obj is None:
             return None
 
@@ -87,9 +82,6 @@ class AuthConfig(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "authType": obj.get("authType"),
-            "authURL": obj.get("authURL"),
-            "authOrganizationsConfig": AuthOrganizationsConfig.from_dict(obj["authOrganizationsConfig"]) if obj.get("authOrganizationsConfig") is not None else None
         })
         return _obj
 
