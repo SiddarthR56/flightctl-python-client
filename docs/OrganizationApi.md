@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **list_organizations**
-> OrganizationList list_organizations()
+> OrganizationList list_organizations(field_selector=field_selector)
 
 List organizations
 
@@ -34,10 +34,11 @@ configuration = flightctl.Configuration(
 with flightctl.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = flightctl.OrganizationApi(api_client)
+    field_selector = 'field_selector_example' # str | A selector to restrict the list of returned objects by their fields, supporting operators like '=', '==', and '!=' (e.g., \"key1=value1,key2!=value2\"). (optional)
 
     try:
         # List organizations
-        api_response = api_instance.list_organizations()
+        api_response = api_instance.list_organizations(field_selector=field_selector)
         print("The response of OrganizationApi->list_organizations:\n")
         pprint(api_response)
     except Exception as e:
@@ -48,7 +49,10 @@ with flightctl.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **field_selector** | **str**| A selector to restrict the list of returned objects by their fields, supporting operators like &#39;&#x3D;&#39;, &#39;&#x3D;&#x3D;&#39;, and &#39;!&#x3D;&#39; (e.g., \&quot;key1&#x3D;value1,key2!&#x3D;value2\&quot;). | [optional] 
 
 ### Return type
 

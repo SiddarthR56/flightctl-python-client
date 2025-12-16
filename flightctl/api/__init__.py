@@ -2,6 +2,7 @@
 
 # import apis into api package
 from flightctl.api.authentication_api import AuthenticationApi
+from flightctl.api.authprovider_api import AuthproviderApi
 from flightctl.api.certificatesigningrequest_api import CertificatesigningrequestApi
 from flightctl.api.device_api import DeviceApi
 from flightctl.api.deviceactions_api import DeviceactionsApi

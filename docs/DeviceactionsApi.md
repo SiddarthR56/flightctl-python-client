@@ -10,8 +10,6 @@ Method | HTTP request | Description
 # **resume_devices**
 > DeviceResumeResponse resume_devices(device_resume_request)
 
-
-
 Resume devices based on label selector and/or field selector.
 
 ### Example

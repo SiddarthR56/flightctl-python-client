@@ -6,7 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Unique name of the volume used within the application. | 
+**reclaim_policy** | [**ApplicationVolumeReclaimPolicy**](ApplicationVolumeReclaimPolicy.md) |  | [optional] [default to ApplicationVolumeReclaimPolicy.RETAIN]
 **image** | [**ImageVolumeSource**](ImageVolumeSource.md) |  | 
+**mount** | [**VolumeMount**](VolumeMount.md) |  | 
 
 ## Example
 

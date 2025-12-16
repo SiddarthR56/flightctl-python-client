@@ -10,9 +10,8 @@ Method | HTTP request | Description
 # **list_labels**
 > List[str] list_labels(kind, label_selector=label_selector, field_selector=field_selector, limit=limit)
 
+Retrieves a distinct list of labels for the specified resource type.
 
-
-Retrieves a distinct list of labels for the specified resource type. 
 
 ### Example
 

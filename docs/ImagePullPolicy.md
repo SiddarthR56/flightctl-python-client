@@ -4,11 +4,11 @@ Optional. Defaults to 'IfNotPresent'. When set to 'Always', the image is pulled 
 
 ## Enum
 
-* `ALWAYS` (value: `'Always'`)
+* `PullAlways` (value: `'Always'`)
 
-* `IFNOTPRESENT` (value: `'IfNotPresent'`)
+* `PullIfNotPresent` (value: `'IfNotPresent'`)
 
-* `NEVER` (value: `'Never'`)
+* `PullNever` (value: `'Never'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

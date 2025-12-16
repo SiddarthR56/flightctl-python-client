@@ -4,37 +4,37 @@ Type of condition in CamelCase.
 
 ## Enum
 
-* `APPROVED` (value: `'Approved'`)
+* `EnrollmentRequestApproved` (value: `'Approved'`)
 
-* `TPMVERIFIED` (value: `'TPMVerified'`)
+* `EnrollmentRequestTPMVerified` (value: `'TPMVerified'`)
 
-* `APPROVED` (value: `'Approved'`)
+* `CertificateSigningRequestApproved` (value: `'Approved'`)
 
-* `DENIED` (value: `'Denied'`)
+* `CertificateSigningRequestDenied` (value: `'Denied'`)
 
-* `FAILED` (value: `'Failed'`)
+* `CertificateSigningRequestFailed` (value: `'Failed'`)
 
-* `TPMVERIFIED` (value: `'TPMVerified'`)
+* `CertificateSigningRequestTPMVerified` (value: `'TPMVerified'`)
 
-* `ACCESSIBLE` (value: `'Accessible'`)
+* `RepositoryAccessible` (value: `'Accessible'`)
 
-* `ACCESSIBLE` (value: `'Accessible'`)
+* `ResourceSyncAccessible` (value: `'Accessible'`)
 
-* `RESOURCEPARSED` (value: `'ResourceParsed'`)
+* `ResourceSyncResourceParsed` (value: `'ResourceParsed'`)
 
-* `SYNCED` (value: `'Synced'`)
+* `ResourceSyncSynced` (value: `'Synced'`)
 
-* `VALID` (value: `'Valid'`)
+* `FleetValid` (value: `'Valid'`)
 
-* `ROLLOUTINPROGRESS` (value: `'RolloutInProgress'`)
+* `FleetRolloutInProgress` (value: `'RolloutInProgress'`)
 
-* `UPDATING` (value: `'Updating'`)
+* `DeviceUpdating` (value: `'Updating'`)
 
-* `SPECVALID` (value: `'SpecValid'`)
+* `DeviceSpecValid` (value: `'SpecValid'`)
 
-* `MULTIPLEOWNERS` (value: `'MultipleOwners'`)
+* `DeviceMultipleOwners` (value: `'MultipleOwners'`)
 
-* `DEVICEDECOMMISSIONING` (value: `'DeviceDecommissioning'`)
+* `DeviceDecommissioning` (value: `'DeviceDecommissioning'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

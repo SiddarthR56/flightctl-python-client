@@ -10,9 +10,8 @@ Method | HTTP request | Description
 # **list_events**
 > EventList list_events(field_selector=field_selector, order=order, limit=limit, var_continue=var_continue)
 
+Retrieves a list of events.
 
-
-Retrieves a list of events. 
 
 ### Example
 

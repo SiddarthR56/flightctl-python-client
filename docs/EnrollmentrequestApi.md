@@ -20,8 +20,6 @@ Method | HTTP request | Description
 # **approve_enrollment_request**
 > EnrollmentRequestApprovalStatus approve_enrollment_request(name, enrollment_request_approval)
 
-
-
 Approve or deny an EnrollmentRequest.
 
 ### Example
@@ -96,8 +94,6 @@ No authorization required
 # **create_enrollment_request**
 > EnrollmentRequest create_enrollment_request(enrollment_request)
 
-
-
 Create an EnrollmentRequest resource.
 
 ### Example
@@ -168,8 +164,6 @@ No authorization required
 
 # **delete_enrollment_request**
 > Status delete_enrollment_request(name)
-
-
 
 Delete an EnrollmentRequest resource.
 
@@ -242,8 +236,6 @@ No authorization required
 # **get_enrollment_config**
 > EnrollmentConfig get_enrollment_config(csr=csr)
 
-
-
 Get enrollment information.
 
 ### Example
@@ -315,8 +307,6 @@ No authorization required
 # **get_enrollment_request**
 > EnrollmentRequest get_enrollment_request(name)
 
-
-
 Get an EnrollmentRequest resource.
 
 ### Example
@@ -387,8 +377,6 @@ No authorization required
 # **get_enrollment_request_status**
 > EnrollmentRequest get_enrollment_request_status(name)
 
-
-
 Get the status of an EnrollmentRequest resource.
 
 ### Example
@@ -458,8 +446,6 @@ No authorization required
 
 # **list_enrollment_requests**
 > EnrollmentRequestList list_enrollment_requests(var_continue=var_continue, label_selector=label_selector, field_selector=field_selector, limit=limit)
-
-
 
 List EnrollmentRequest resources.
 
@@ -537,8 +523,6 @@ No authorization required
 # **patch_enrollment_request**
 > EnrollmentRequest patch_enrollment_request(name, patch_request_inner)
 
-
-
 Patch an EnrollmentRequest resource.
 
 ### Example
@@ -613,8 +597,6 @@ No authorization required
 
 # **patch_enrollment_request_status**
 > EnrollmentRequest patch_enrollment_request_status(name, patch_request_inner)
-
-
 
 Patch the status of an EnrollmentRequest resource.
 
@@ -691,8 +673,6 @@ No authorization required
 # **replace_enrollment_request**
 > EnrollmentRequest replace_enrollment_request(name, enrollment_request)
 
-
-
 Update an EnrollmentRequest resource.
 
 ### Example
@@ -767,8 +747,6 @@ No authorization required
 
 # **replace_enrollment_request_status**
 > EnrollmentRequest replace_enrollment_request_status(name, enrollment_request)
-
-
 
 Update the status of an EnrollmentRequest resource.
 

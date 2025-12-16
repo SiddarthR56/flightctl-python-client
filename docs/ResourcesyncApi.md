@@ -15,8 +15,6 @@ Method | HTTP request | Description
 # **create_resource_sync**
 > ResourceSync create_resource_sync(resource_sync)
 
-
-
 Create a ResourceSync resource.
 
 ### Example
@@ -88,8 +86,6 @@ No authorization required
 # **delete_resource_sync**
 > Status delete_resource_sync(name)
 
-
-
 Delete a ResourceSync resource.
 
 ### Example
@@ -160,8 +156,6 @@ No authorization required
 # **get_resource_sync**
 > ResourceSync get_resource_sync(name)
 
-
-
 Get a ResourceSync resource.
 
 ### Example
@@ -231,8 +225,6 @@ No authorization required
 
 # **list_resource_syncs**
 > ResourceSyncList list_resource_syncs(var_continue=var_continue, label_selector=label_selector, field_selector=field_selector, limit=limit)
-
-
 
 List ResourceSync resources.
 
@@ -310,8 +302,6 @@ No authorization required
 # **patch_resource_sync**
 > ResourceSync patch_resource_sync(name, patch_request_inner)
 
-
-
 Patch a ResourceSync resource.
 
 ### Example
@@ -386,8 +376,6 @@ No authorization required
 
 # **replace_resource_sync**
 > ResourceSync replace_resource_sync(name, resource_sync)
-
-
 
 Update a ResourceSync resource.
 

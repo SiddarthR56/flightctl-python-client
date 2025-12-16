@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Flight Control API
-  version: v1alpha1
+  version: v1beta1
   description: |
     [Flight Control](https://flightctl.io) is a service for declarative management of fleets of edge devices and their workloads.
   contact:
@@ -16,6 +16,8 @@ servers:
 tags:
   - name: authentication
     description: Operations for authentication.
+  - name: authprovider
+    description: Operations on AuthProvider resources.
   - name: certificatesigningrequest
     description: Operations on CertificateSigningRequest resources.
   - name: device
@@ -89,6 +91,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Status'
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
   /api/v1/auth/validate:
     get:
       tags:
@@ -122,6 +130,121 @@ paths:
                 $ref: '#/components/schemas/Status'
         "418":
           description: Auth not configured
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /api/v1/auth/permissions:
+    get:
+      tags:
+        - authentication
+      description: Get the list of available permissions for the authenticated user.
+      operationId: authGetPermissions
+      responses:
+        "200":
+          description: List of available permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionList'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "418":
+          description: Auth not configured
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /api/v1/auth/{providername}/token:
+    post:
+      tags:
+        - authentication
+      description: OAuth2 token exchange endpoint. Proxies token requests to the configured authentication provider (PAM issuer) for authorization code flow with PKCE support.
+      operationId: authToken
+      parameters:
+        - name: providername
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Name of the authentication provider to use.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+      responses:
+        "200":
+          description: Token response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+  /api/v1/auth/userinfo:
+    get:
+      tags:
+        - authentication
+      description: OIDC UserInfo endpoint. Proxies the request to the configured authentication provider to retrieve user information.
+      operationId: authUserInfo
+      responses:
+        "200":
+          description: User information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfoResponse'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "418":
+          description: Auth not configured
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "429":
+          description: Too Many Requests
           content:
             application/json:
               schema:
@@ -3590,6 +3713,12 @@ paths:
       summary: List organizations
       description: Retrieves a list of organizations.  Only returns organizations that the user has access to.
       operationId: listOrganizations
+      parameters:
+        - name: fieldSelector
+          in: query
+          description: A selector to restrict the list of returned objects by their fields, supporting operators like '=', '==', and '!=' (e.g., "key1=value1,key2!=value2").
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -3627,6 +3756,366 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Status'
+  /api/v1/authproviders:
+    get:
+      tags:
+        - authprovider
+      description: List AuthProvider resources.
+      operationId: listAuthProviders
+      parameters:
+        - name: continue
+          in: query
+          description: An optional parameter to query more results from the server. The value of the paramter must match the value of the 'continue' field in the previous list response.
+          required: false
+          schema:
+            type: string
+        - name: labelSelector
+          in: query
+          description: A selector to restrict the list of returned objects by their labels. Defaults to everything.
+          schema:
+            type: string
+        - name: fieldSelector
+          in: query
+          description: A selector to restrict the list of returned objects by their fields, supporting operators like '=', '==', and '!=' (e.g., "key1=value1,key2!=value2").
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: The maximum number of results returned in the list response. The server will set the 'continue' field in the list response if more results exist. The continue value may then be specified as parameter in a subsequent query.
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthProviderList'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "503":
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+    post:
+      tags:
+        - authprovider
+      description: Create an AuthProvider resource.
+      operationId: createAuthProvider
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthProvider'
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthProvider'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "503":
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /api/v1/authproviders/{name}:
+    get:
+      tags:
+        - authprovider
+      description: Get an AuthProvider resource.
+      operationId: getAuthProvider
+      parameters:
+        - name: name
+          in: path
+          description: The name of the AuthProvider resource to get.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthProvider'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "503":
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+    put:
+      tags:
+        - authprovider
+      description: Update an AuthProvider resource.
+      operationId: replaceAuthProvider
+      parameters:
+        - name: name
+          in: path
+          description: The name of the AuthProvider resource to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthProvider'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthProvider'
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthProvider'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "503":
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+    patch:
+      tags:
+        - authprovider
+      description: Patch an AuthProvider resource.
+      operationId: patchAuthProvider
+      parameters:
+        - name: name
+          in: path
+          description: The name of the AuthProvider resource to patch.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/PatchRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthProvider'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "503":
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+    delete:
+      tags:
+        - authprovider
+      description: Delete an AuthProvider resource.
+      operationId: deleteAuthProvider
+      parameters:
+        - name: name
+          in: path
+          description: The name of the AuthProvider resource to delete.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "503":
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
 components:
   securitySchemes:
     bearerAuth:
@@ -3641,7 +4130,7 @@ components:
   schemas:
     ResourceKind:
       type: string
-      enum: [CertificateSigningRequest, EnrollmentRequest, Device, Fleet, Repository, ResourceSync, TemplateVersion]
+      enum: [CertificateSigningRequest, EnrollmentRequest, Device, Fleet, Repository, ResourceSync, TemplateVersion, AuthProvider]
       description: Resource types exposed via the API.
     DeviceDecommissionTargetType:
       type: string
@@ -4072,6 +4561,8 @@ components:
               description: The application name must be 1–253 characters long, start with a letter or number, and contain no whitespace.
             appType:
               $ref: '#/components/schemas/AppType'
+          required: 
+            - appType
         - oneOf:
             - $ref: '#/components/schemas/ImageApplicationProviderSpec'
             - $ref: '#/components/schemas/InlineApplicationProviderSpec'
@@ -4083,7 +4574,14 @@ components:
           properties:
             image:
               type: string
-              description: Reference to the container image for the application package.
+              description: Reference to the OCI image or artifact for the application package.
+            ports:
+              type: array
+              description: Port mappings.
+              items:
+                $ref: '#/components/schemas/ApplicationPort'
+            resources:
+              $ref: '#/components/schemas/ApplicationResources'
           required:
             - image
     InlineApplicationProviderSpec:
@@ -4115,10 +4613,30 @@ components:
             name:
               type: string
               description: Unique name of the volume used within the application.
+            reclaimPolicy:
+              $ref: "#/components/schemas/ApplicationVolumeReclaimPolicy"
           required:
             - name
         - oneOf:
             - $ref: "#/components/schemas/ImageVolumeProviderSpec"
+            - $ref: "#/components/schemas/MountVolumeProviderSpec"
+            - $ref: "#/components/schemas/ImageMountVolumeProviderSpec"
+    ApplicationVolumeReclaimPolicy:
+      type: string
+      description: Defines how the agent handles a volume when the owning application is removed.
+      default: Retain
+      enum:
+        - Retain
+    VolumeMount:
+      type: object
+      description: Mount configuration for a volume.
+      properties:
+        path:
+          type: string
+          description: Mount path in the container with support for options.
+          example: "/etc/nginx/conf.d:ro"
+      required:
+        - path
     ImageVolumeProviderSpec:
       type: object
       properties:
@@ -4126,6 +4644,8 @@ components:
           $ref: '#/components/schemas/ImageVolumeSource'
       required:
         - image
+      not:
+        required: [mount]
     ImageVolumeSource:
       type: object
       description: Describes the source of an OCI-compliant image or artifact.
@@ -4137,6 +4657,27 @@ components:
           $ref: '#/components/schemas/ImagePullPolicy'
       required:
         - reference
+    MountVolumeProviderSpec:
+      type: object
+      description: Named volume mount configuration.
+      properties:
+        mount:
+          $ref: '#/components/schemas/VolumeMount'
+      required:
+        - mount
+      not:
+        required: [image]
+    ImageMountVolumeProviderSpec:
+      type: object
+      description: Volume from OCI image mounted at specified path.
+      properties:
+        image:
+          $ref: '#/components/schemas/ImageVolumeSource'
+        mount:
+          $ref: '#/components/schemas/VolumeMount'
+      required:
+        - image
+        - mount
     ApplicationContent:
         allOf:
           - $ref: '#/components/schemas/FileContent'
@@ -4152,13 +4693,40 @@ components:
           description: Environment variable key-value pairs, injected during runtime. The key and value each must be between 1 and 253 characters.
           additionalProperties:
             type: string
+    ApplicationPort:
+      type: string
+      description: Port mapping in format "hostPort:containerPort" (e.g., "8080:80").
+      pattern: '^\d+:\d+$'
+      example: "8080:80"
+    ApplicationResourceLimits:
+      type: object
+      description: Resource limits for the application.
+      properties:
+        cpu:
+          type: string
+          description: CPU limit in cores. Format restricted based on application type.
+          example: "0.75"
+        memory:
+          type: string
+          description: Memory limit with optional unit. Format restricted based on application type.
+          example: "256m"
+    ApplicationResources:
+      type: object
+      description: Resource constraints for the application.
+      properties:
+        limits:
+          $ref: '#/components/schemas/ApplicationResourceLimits'
     AppType:
       type: string
       description: The type of the application.
       enum:
         - "compose"
+        - "quadlet"
+        - "container"
       x-enum-varnames:
         - "AppTypeCompose"
+        - "AppTypeQuadlet"
+        - "AppTypeContainer"
     ResourceMonitor:
       oneOf:
         - $ref: '#/components/schemas/CpuResourceMonitorSpec'
@@ -4352,6 +4920,7 @@ components:
           $ref: '#/components/schemas/Duration'
       required:
         - at
+        - startGraceDuration
     TimeZone:
       type: string
       description: Time zone identifiers follow the IANA format AREA/LOCATION, where AREA represents a continent or ocean, and LOCATION specifies a particular site within that area, for example America/New_York, Europe/Paris. Only unambiguous 3-character time zones are supported ("GMT", "UTC").
@@ -4443,9 +5012,14 @@ components:
             $ref: '#/components/schemas/Condition'
         systemInfo:
           $ref: "#/components/schemas/DeviceSystemInfo"
+        systemd:
+          type: array
+          description: List of systemd unit statuses.
+          items:
+            $ref: "#/components/schemas/SystemdUnitStatus"
         applications:
           type: array
-          description: List of device application status.
+          description: List of device application statuses.
           items:
             $ref: "#/components/schemas/DeviceApplicationStatus"
         applicationsSummary:
@@ -4513,6 +5087,116 @@ components:
       additionalProperties:
         type: string
         description: A user-defined custom property value.
+    SystemdUnitStatus:
+      type: object
+      required:
+        - unit
+        - description
+        - enableState
+        - loadState
+        - activeState
+        - subState
+      properties:
+        unit:
+          type: string
+          description: The unit name (e.g., "sshd.service").
+          example: "sshd.service"
+        description:
+          type: string
+          description: The human-readable description for the unit.
+          maxLength: 2048
+          example: "OpenSSH server daemon"
+        enableState:
+          $ref: "#/components/schemas/SystemdEnableStateType"
+        loadState:
+          $ref: "#/components/schemas/SystemdLoadStateType"
+        activeState:
+          $ref: "#/components/schemas/SystemdActiveStateType"
+        subState:
+          type: string
+          description: The low-level, unit-type-specific state.
+          maxLength: 64
+          pattern: '^[a-z0-9-]+$'
+          example: "running"
+    SystemdEnableStateType:
+      type: string
+      description: The enable state of the unit file.
+      enum:
+        - "enabled"
+        - "enabled-runtime"
+        - "linked"
+        - "linked-runtime"
+        - "alias"
+        - "masked"
+        - "masked-runtime"
+        - "static"
+        - "disabled"
+        - "indirect"
+        - "generated"
+        - "transient"
+        - "bad"
+        - "unknown"
+        - ""
+      x-enum-varnames:
+        - "SystemdEnableStateEnabled"
+        - "SystemdEnableStateEnabledRuntime"
+        - "SystemdEnableStateLinked"
+        - "SystemdEnableStateLinkedRuntime"
+        - "SystemdEnableStateAlias"
+        - "SystemdEnableStateMasked"
+        - "SystemdEnableStateMaskedRuntime"
+        - "SystemdEnableStateStatic"
+        - "SystemdEnableStateDisabled"
+        - "SystemdEnableStateIndirect"
+        - "SystemdEnableStateGenerated"
+        - "SystemdEnableStateTransient"
+        - "SystemdEnableStateBad"
+        - "SystemdEnableStateUnknown"
+        - "SystemdEnableStateEmpty"
+    SystemdLoadStateType:
+      type: string
+      description: The load state of the unit file.
+      enum:
+        - "stub"
+        - "loaded"
+        - "not-found"
+        - "bad-setting"
+        - "error"
+        - "merged"
+        - "masked"
+        - "unknown"
+      x-enum-varnames:
+        - "SystemdLoadStateStub"
+        - "SystemdLoadStateLoaded"
+        - "SystemdLoadStateNotFound"
+        - "SystemdLoadStateBadSetting"
+        - "SystemdLoadStateError"
+        - "SystemdLoadStateMerged"
+        - "SystemdLoadStateMasked"
+        - "SystemdLoadStateUnknown"
+    SystemdActiveStateType:
+      type: string
+      description: The high-level unit activation state.
+      enum:
+        - "active"
+        - "reloading"
+        - "inactive"
+        - "failed"
+        - "activating"
+        - "deactivating"
+        - "maintenance"
+        - "refreshing"
+        - "unknown"
+      x-enum-varnames:
+        - "SystemdActiveStateActive"
+        - "SystemdActiveStateReloading"
+        - "SystemdActiveStateInactive"
+        - "SystemdActiveStateFailed"
+        - "SystemdActiveStateActivating"
+        - "SystemdActiveStateDeactivating"
+        - "SystemdActiveStateMaintenance"
+        - "SystemdActiveStateRefreshing"
+        - "SystemdActiveStateUnknown"
     DeviceApplicationStatus:
       type: object
       required:
@@ -4520,6 +5204,8 @@ components:
         - ready
         - restarts
         - status
+        - embedded
+        - appType
       properties:
         name:
           type: string
@@ -4532,6 +5218,11 @@ components:
           description: Number of restarts observed for the application.
         status:
           $ref: "#/components/schemas/ApplicationStatusType"
+        embedded:
+          type: boolean
+          description: Whether the application is embedded in the bootc image.
+        appType:
+          $ref: "#/components/schemas/AppType"
         volumes:
           type: array
           description: Status of volumes used by this application.
@@ -4569,11 +5260,13 @@ components:
         - "Degraded"
         - "Error"
         - "Unknown"
+        - "NoApplications"
       x-enum-varnames:
         - "ApplicationsSummaryStatusHealthy"
         - "ApplicationsSummaryStatusDegraded"
         - "ApplicationsSummaryStatusError"
         - "ApplicationsSummaryStatusUnknown"
+        - "ApplicationsSummaryStatusNoApplications"
     ApplicationStatusType:
       type: string
       description: Status of a single application on the device.
@@ -4916,6 +5609,9 @@ components:
           additionalProperties:
             type: string
           description: 'A set of labels that the service will apply to this device when its enrollment is approved.'
+        knownRenderedVersion:
+          type: string
+          description: 'The rendered version of the device from desired.json (optional).'
       description: EnrollmentRequestSpec is a description of a EnrollmentRequest's target state.
     EnrollmentRequestStatus:
       type: object
@@ -5096,7 +5792,6 @@ components:
       type: string
       pattern: '^(?:[1-9]\d*)?\d[smh]$'
       description: 'The maximum duration allowed for the action to complete. The duration should be specified as a positive integer followed by a time unit. Supported time units are: `s` for seconds, `m` for minutes, `h` for hours.'
-      default: "0s"
 
     RolloutStrategy:
       type: string
@@ -5331,29 +6026,117 @@ components:
     AuthConfig:
       type: object
       properties:
-        authType:
+        apiVersion:
           type: string
-          description: Auth type.
-        authURL:
+          description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.'
+        providers:
+          type: array
+          description: List of all available authentication providers.
+          items:
+            $ref: '#/components/schemas/AuthProvider'
+        defaultProvider:
           type: string
-          description: Auth URL.
-        authOrganizationsConfig:
-          $ref: '#/components/schemas/AuthOrganizationsConfig'
-      required:
-        - authType
-        - authURL
-        - authOrganizationsConfig
-      description: Auth config.
-    AuthOrganizationsConfig:
-      type: object
-      description: Auth related organizations configuration.
-      properties:
-        enabled:
+          description: Name of the default authentication provider.
+        organizationsEnabled:
           type: boolean
-          description: If true, support for IdP provided organizations is enabled.
-          default: false
+          description: Whether organizations are enabled for authentication.
       required:
-        - enabled
+        - apiVersion
+    TokenRequest:
+      type: object
+      required:
+        - grant_type
+        - client_id
+      properties:
+        grant_type:
+          type: string
+          enum: [refresh_token, authorization_code]
+          description: OAuth2 grant type.
+          x-oapi-codegen-extra-tags:
+            form: grant_type
+        client_id:
+          type: string
+          description: OAuth2 client identifier.
+          x-oapi-codegen-extra-tags:
+            form: client_id
+        refresh_token:
+          type: string
+          nullable: true
+          description: Refresh token for refresh_token grant.
+          x-oapi-codegen-extra-tags:
+            form: refresh_token,omitempty
+        code:
+          type: string
+          nullable: true
+          description: Authorization code for authorization_code grant.
+          x-oapi-codegen-extra-tags:
+            form: code,omitempty
+        scope:
+          type: string
+          nullable: true
+          description: OAuth2 scope.
+          x-oapi-codegen-extra-tags:
+            form: scope,omitempty
+        code_verifier:
+          type: string
+          nullable: true
+          description: PKCE code verifier.
+          x-oapi-codegen-extra-tags:
+            form: code_verifier,omitempty
+        redirect_uri:
+          type: string
+          nullable: true
+          description: OAuth2 redirect URI (required for authorization_code grant if included in authorization request).
+          x-oapi-codegen-extra-tags:
+            form: redirect_uri,omitempty
+      description: OAuth2 token request
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: OAuth2 access token.
+        token_type:
+          type: string
+          enum: [Bearer]
+          description: Token type.
+        id_token:
+          type: string
+          description: OIDC ID token (JWT). Present when using OIDC with openid scope.
+        refresh_token:
+          type: string
+          description: OAuth2 refresh token.
+        expires_in:
+          type: integer
+          description: Token expiration time in seconds.
+        error:
+          type: string
+          description: OAuth2 error code.
+        error_description:
+          type: string
+          description: OAuth2 error description.
+      description: OAuth2 token response
+    UserInfoResponse:
+      type: object
+      properties:
+        sub:
+          type: string
+          description: Subject identifier.
+        preferred_username:
+          type: string
+          description: Preferred username.
+        name:
+          type: string
+          description: Full name.
+        organizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization'
+          description: User organizations.
+        error:
+          type: string
+          description: Error code.
+      description: OIDC UserInfo response
     ListMeta:
       type: object
       properties:
@@ -6158,3 +6941,497 @@ components:
           items:
             $ref: '#/components/schemas/Organization'
       description: OrganizationList is a list of Organizations.
+    AuthProvider:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.'
+        kind:
+          type: string
+          description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds.'
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/AuthProviderSpec'
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      description: AuthProvider represents an authentication provider configuration supporting both OIDC and OAuth2.
+    AuthProviderSpec:
+      oneOf:
+        - $ref: '#/components/schemas/OIDCProviderSpec'
+        - $ref: '#/components/schemas/OAuth2ProviderSpec'
+        - $ref: '#/components/schemas/OpenShiftProviderSpec'
+        - $ref: '#/components/schemas/AapProviderSpec'
+        - $ref: '#/components/schemas/K8sProviderSpec'
+      discriminator:
+        propertyName: providerType
+        mapping:
+          oidc: '#/components/schemas/OIDCProviderSpec'
+          oauth2: '#/components/schemas/OAuth2ProviderSpec'
+          openshift: '#/components/schemas/OpenShiftProviderSpec'
+          aap: '#/components/schemas/AapProviderSpec'
+          k8s: '#/components/schemas/K8sProviderSpec'
+      required:
+        - providerType
+    OIDCProviderSpec:
+      type: object
+      description: OIDCProviderSpec describes an OIDC provider configuration.
+      properties:
+        providerType:
+          type: string
+          enum: [oidc]
+          description: The type of authentication provider.
+        displayName:
+          type: string
+          description: Human-readable display name for the provider.
+        issuer:
+          type: string
+          description: The OIDC issuer URL (e.g., https://accounts.google.com).
+        clientId:
+          type: string
+          description: The OIDC client ID.
+        clientSecret:
+          type: string
+          description: The OIDC client secret.
+          writeOnly: true
+        enabled:
+          type: boolean
+          description: Whether this OIDC provider is enabled.
+          default: true
+        scopes:
+          type: array
+          items:
+            type: string
+          description: List of OIDC scopes to request.
+        organizationAssignment:
+          $ref: '#/components/schemas/AuthOrganizationAssignment'
+        usernameClaim:
+          type: array
+          items:
+            type: string
+          description: JSON path to the username claim in the JWT token as an array of path segments (e.g., ["preferred_username"], ["email"], ["sub"]).
+          default: ["preferred_username"]
+        roleAssignment:
+          $ref: '#/components/schemas/AuthRoleAssignment'
+      required:
+        - providerType
+        - issuer
+        - clientId
+        - clientSecret
+        - organizationAssignment
+        - roleAssignment
+    OAuth2ProviderSpec:
+      type: object
+      description: OAuth2ProviderSpec describes an OAuth2 provider configuration.
+      properties:
+        providerType:
+          type: string
+          enum: [oauth2]
+          description: The type of authentication provider.
+        displayName:
+          type: string
+          description: Human-readable display name for the provider.
+        issuer:
+          type: string
+          description: The OAuth2 issuer identifier (used for issuer identification in tokens).
+        authorizationUrl:
+          type: string
+          description: The OAuth2 authorization endpoint URL.
+        tokenUrl:
+          type: string
+          description: The OAuth2 token endpoint URL.
+        userinfoUrl:
+          type: string
+          description: The OAuth2 userinfo endpoint URL.
+        clientId:
+          type: string
+          description: The OAuth2 client ID.
+        clientSecret:
+          type: string
+          description: The OAuth2 client secret.
+          writeOnly: true
+        enabled:
+          type: boolean
+          description: Whether this OAuth2 provider is enabled.
+          default: true
+        scopes:
+          type: array
+          items:
+            type: string
+          description: List of OAuth2 scopes to request.
+        organizationAssignment:
+          $ref: '#/components/schemas/AuthOrganizationAssignment'
+        usernameClaim:
+          type: array
+          items:
+            type: string
+          description: JSON path to the username claim in the userinfo response as an array of path segments (e.g., ["preferred_username"], ["email"], ["sub"]).
+          default: ["preferred_username"]
+        roleAssignment:
+          $ref: '#/components/schemas/AuthRoleAssignment'
+        introspection:
+          $ref: '#/components/schemas/OAuth2Introspection'
+      required:
+        - providerType
+        - authorizationUrl
+        - tokenUrl
+        - userinfoUrl
+        - clientId
+        - clientSecret
+        - organizationAssignment
+        - roleAssignment
+    OAuth2Introspection:
+      type: object
+      description: OAuth2Introspection defines the token introspection configuration.
+      oneOf:
+        - $ref: '#/components/schemas/Rfc7662IntrospectionSpec'
+        - $ref: '#/components/schemas/GitHubIntrospectionSpec'
+        - $ref: '#/components/schemas/JwtIntrospectionSpec'
+      discriminator:
+        propertyName: type
+        mapping:
+          rfc7662: '#/components/schemas/Rfc7662IntrospectionSpec'
+          github: '#/components/schemas/GitHubIntrospectionSpec'
+          jwt: '#/components/schemas/JwtIntrospectionSpec'
+    Rfc7662IntrospectionSpec:
+      type: object
+      description: Rfc7662IntrospectionSpec defines token introspection using RFC 7662 standard. Uses the OAuth2ProviderSpec clientId and clientSecret for authentication.
+      properties:
+        type:
+          type: string
+          enum: [rfc7662]
+          description: The introspection type.
+        url:
+          type: string
+          description: The RFC 7662 token introspection endpoint URL.
+      required:
+        - type
+        - url
+    GitHubIntrospectionSpec:
+      type: object
+      description: GitHubIntrospectionSpec defines token introspection using GitHub API (POST /applications/{client_id}/token). Uses the OAuth2ProviderSpec clientId and clientSecret for Basic Auth and URL path.
+      properties:
+        type:
+          type: string
+          enum: [github]
+          description: The introspection type.
+        url:
+          type: string
+          description: The GitHub API base URL. Defaults to https://api.github.com for GitHub.com, but can be customized for GitHub Enterprise Server.
+          default: https://api.github.com
+      required:
+        - type
+    JwtIntrospectionSpec:
+      type: object
+      description: JwtIntrospectionSpec defines token introspection using JWT validation with JWKS.
+      properties:
+        type:
+          type: string
+          enum: [jwt]
+          description: The introspection type.
+        jwksUrl:
+          type: string
+          description: The JWKS (JSON Web Key Set) endpoint URL for fetching public keys to validate JWT signatures.
+        issuer:
+          type: string
+          description: Expected issuer claim value in the JWT. If not specified, uses the OAuth2ProviderSpec issuer.
+        audience:
+          type: array
+          items:
+            type: string
+          description: Expected audience claim values in the JWT. If not specified, uses the OAuth2ProviderSpec clientId.
+      required:
+        - type
+        - jwksUrl
+    OpenShiftProviderSpec:
+      type: object
+      description: OpenShiftProviderSpec describes an OpenShift OAuth provider configuration.
+      properties:
+        providerType:
+          type: string
+          enum: [openshift]
+          description: The type of authentication provider.
+        displayName:
+          type: string
+          description: Human-readable display name for the provider.
+        issuer:
+          type: string
+          description: The OAuth2 issuer identifier (used for issuer identification in tokens).
+        authorizationUrl:
+          type: string
+          description: The OAuth2 authorization endpoint URL.
+        tokenUrl:
+          type: string
+          description: The OAuth2 token endpoint URL.
+        clientId:
+          type: string
+          description: The OAuth2 client ID.
+        clientSecret:
+          type: string
+          description: The OAuth2 client secret.
+          writeOnly: true
+        enabled:
+          type: boolean
+          description: Whether this OpenShift provider is enabled.
+          default: true
+        scopes:
+          type: array
+          items:
+            type: string
+          description: List of OAuth2 scopes to request.
+        clusterControlPlaneUrl:
+          type: string
+          description: The OpenShift cluster control plane URL.
+        projectLabelFilter:
+          type: string
+          description: If specified, only projects with this label will be considered. The label selector should be in the format 'key' or 'key=value'. If only the key is provided, any project with that label (regardless of value) will be included. This enables server-side filtering for better performance.
+        roleSuffix:
+          type: string
+          description: Optional suffix to strip from ClusterRole names when normalizing role names. Used for multi-release deployments where ClusterRoles have namespace-specific names (e.g., flightctl-admin-<namespace>).
+      required:
+        - providerType
+    AapProviderSpec:
+      type: object
+      description: AapProviderSpec describes an Ansible Automation Platform (AAP) provider configuration.
+      properties:
+        providerType:
+          type: string
+          enum: [aap]
+          description: The type of authentication provider.
+        displayName:
+          type: string
+          description: Human-readable display name for the provider.
+        apiUrl:
+          type: string
+          description: The internal AAP API URL.
+        authorizationUrl:
+          type: string
+          description: The OAuth2 authorization endpoint URL.
+        tokenUrl:
+          type: string
+          description: The OAuth2 token endpoint URL.
+        clientId:
+          type: string
+          description: The OAuth2 client ID.
+        clientSecret:
+          type: string
+          description: The OAuth2 client secret.
+          writeOnly: true
+        enabled:
+          type: boolean
+          description: Whether this AAP provider is enabled.
+          default: true
+        scopes:
+          type: array
+          items:
+            type: string
+          description: List of OAuth2 scopes to request.
+      required:
+        - providerType
+        - apiUrl
+        - authorizationUrl
+        - tokenUrl
+        - clientId
+        - clientSecret
+        - scopes
+    K8sProviderSpec:
+      type: object
+      description: K8sProviderSpec describes a Kubernetes/OpenShift provider configuration.
+      properties:
+        providerType:
+          type: string
+          enum: [k8s]
+          description: The type of authentication provider.
+        displayName:
+          type: string
+          description: Human-readable display name for the provider.
+        apiUrl:
+          type: string
+          description: The internal Kubernetes API URL.
+        rbacNs:
+          type: string
+          description: The RBAC namespace for permissions.
+        enabled:
+          type: boolean
+          description: Whether this K8s provider is enabled.
+          default: true
+        organizationAssignment:
+          $ref: '#/components/schemas/AuthOrganizationAssignment'
+        roleAssignment:
+          $ref: '#/components/schemas/AuthRoleAssignment'
+        roleSuffix:
+          type: string
+          description: Optional suffix to strip from ClusterRole names when normalizing role names. Used for multi-release deployments where ClusterRoles have namespace-specific names (e.g., flightctl-admin-<namespace>).
+      required:
+        - providerType
+        - apiUrl
+        - organizationAssignment
+        - roleAssignment
+    AuthOrganizationAssignment:
+      type: object
+      description: AuthOrganizationAssignment defines how users from this auth provider are assigned to organizations.
+      oneOf:
+        - $ref: '#/components/schemas/AuthStaticOrganizationAssignment'
+        - $ref: '#/components/schemas/AuthDynamicOrganizationAssignment'
+        - $ref: '#/components/schemas/AuthPerUserOrganizationAssignment'
+      discriminator:
+        propertyName: type
+        mapping:
+          static: '#/components/schemas/AuthStaticOrganizationAssignment'
+          dynamic: '#/components/schemas/AuthDynamicOrganizationAssignment'
+          perUser: '#/components/schemas/AuthPerUserOrganizationAssignment'
+    AuthStaticOrganizationAssignment:
+      type: object
+      description: AuthStaticOrganizationAssignment assigns all users from this auth provider to a single static organization.
+      properties:
+        type:
+          type: string
+          enum: [static]
+          description: The type of organization assignment.
+        organizationName:
+          type: string
+          description: The name of the organization where all users will be assigned.
+      required:
+        - type
+        - organizationName
+    AuthDynamicOrganizationAssignment:
+      type: object
+      description: AuthDynamicOrganizationAssignment assigns users to organizations based on auth provider claims.
+      properties:
+        type:
+          type: string
+          enum: [dynamic]
+          description: The type of organization assignment.
+        claimPath:
+          type: array
+          items:
+            type: string
+          description: The JSON path to the claim that contains the organization identifier (e.g., ["groups", "0"] or ["custom", "org"]).
+        organizationNamePrefix:
+          type: string
+          description: The prefix for the organization name (e.g., "org-").
+          default: ""
+        organizationNameSuffix:
+          type: string
+          description: The suffix for the organization name (e.g., "-org").
+          default: ""
+      required:
+        - type
+        - claimPath
+    AuthPerUserOrganizationAssignment:
+      type: object
+      description: AuthPerUserOrganizationAssignment creates a separate organization for each user.
+      properties:
+        type:
+          type: string
+          enum: [perUser]
+          description: The type of organization assignment.
+        organizationNamePrefix:
+          type: string
+          description: The prefix for the user-specific organization name (e.g., "user-org-").
+          default: "user-org-"
+        organizationNameSuffix:
+          type: string
+          description: The suffix for the user-specific organization name (e.g., "-org").
+          default: ""
+      required:
+        - type
+    AuthRoleAssignment:
+      type: object
+      description: AuthRoleAssignment defines how roles are assigned to users from this auth provider.
+      oneOf:
+        - $ref: '#/components/schemas/AuthStaticRoleAssignment'
+        - $ref: '#/components/schemas/AuthDynamicRoleAssignment'
+      discriminator:
+        propertyName: type
+        mapping:
+          static: '#/components/schemas/AuthStaticRoleAssignment'
+          dynamic: '#/components/schemas/AuthDynamicRoleAssignment'
+    AuthStaticRoleAssignment:
+      type: object
+      description: AuthStaticRoleAssignment assigns a static set of roles to all users from this auth provider.
+      properties:
+        type:
+          type: string
+          enum: [static]
+          description: The type of role assignment.
+        roles:
+          type: array
+          items:
+            type: string
+          description: The list of role names to assign to all users.
+      required:
+        - type
+        - roles
+    AuthDynamicRoleAssignment:
+      type: object
+      description: AuthDynamicRoleAssignment extracts roles from auth provider claims using a JSON path.
+      properties:
+        type:
+          type: string
+          enum: [dynamic]
+          description: The type of role assignment.
+        claimPath:
+          type: array
+          items:
+            type: string
+          description: The JSON path to the role/group claim (e.g., ["groups"], ["roles"], ["realm_access", "roles"]).
+        separator:
+          type: string
+          description: Separator for org:role format (default ':'). Roles containing the separator are split into organization-scoped roles. Roles without separator are global and apply to all organizations.
+          default: ":"
+      required:
+        - type
+        - claimPath
+    AuthProviderList:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.'
+        kind:
+          type: string
+          description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds.'
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          description: 'List of auth providers.'
+          items:
+            $ref: '#/components/schemas/AuthProvider'
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - items
+      description: AuthProviderList is a list of auth providers.
+    PermissionList:
+      type: object
+      description: List of available permissions for a user.
+      properties:
+        permissions:
+          type: array
+          description: List of permissions available to the user.
+          items:
+            $ref: '#/components/schemas/Permission'
+      required:
+        - permissions
+    Permission:
+      type: object
+      description: A permission defining allowed operations on a resource.
+      properties:
+        resource:
+          type: string
+          description: The resource (e.g., "devices", "fleets", "*" for all resources).
+        operations:
+          type: array
+          description: List of allowed operations (e.g., "get", "list", "create", "update", "patch", "delete", "*" for all operations).
+          items:
+            type: string
+      required:
+        - resource
+        - operations
