@@ -21,8 +21,6 @@ Method | HTTP request | Description
 # **create_device**
 > Device create_device(device)
 
-
-
 Create a Device resource.
 
 ### Example
@@ -93,8 +91,6 @@ No authorization required
 
 # **decommission_device**
 > Device decommission_device(name, device_decommission)
-
-
 
 schedule the device to decommission
 
@@ -170,8 +166,6 @@ No authorization required
 # **delete_device**
 > Status delete_device(name)
 
-
-
 Delete a Device resource.
 
 ### Example
@@ -242,8 +236,6 @@ No authorization required
 # **get_device**
 > Device get_device(name)
 
-
-
 Get a Device resource.
 
 ### Example
@@ -313,8 +305,6 @@ No authorization required
 
 # **get_device_last_seen**
 > DeviceLastSeen get_device_last_seen(name)
-
-
 
 Get the last seen timestamp of the Device resource.
 
@@ -387,8 +377,6 @@ No authorization required
 # **get_device_status**
 > Device get_device_status(name)
 
-
-
 Get the status of a Device resource.
 
 ### Example
@@ -458,8 +446,6 @@ No authorization required
 
 # **get_rendered_device**
 > Device get_rendered_device(name, known_rendered_version=known_rendered_version)
-
-
 
 Get the rendered device.
 
@@ -534,8 +520,6 @@ No authorization required
 
 # **list_devices**
 > DeviceList list_devices(var_continue=var_continue, label_selector=label_selector, field_selector=field_selector, limit=limit, summary_only=summary_only)
-
-
 
 List Device resources.
 
@@ -615,8 +599,6 @@ No authorization required
 # **patch_device**
 > Device patch_device(name, patch_request_inner)
 
-
-
 Patch a Device resource.
 
 ### Example
@@ -692,8 +674,6 @@ No authorization required
 # **patch_device_status**
 > Device patch_device_status(name, patch_request_inner)
 
-
-
 Patch the status of a Device resource.
 
 ### Example
@@ -767,8 +747,6 @@ No authorization required
 
 # **replace_device**
 > Device replace_device(name, device)
-
-
 
 Update a Device resource.
 
@@ -844,8 +822,6 @@ No authorization required
 
 # **replace_device_status**
 > Device replace_device_status(name, device)
-
-
 
 Update the status of a Device resource.
 

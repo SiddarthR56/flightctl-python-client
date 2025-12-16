@@ -15,8 +15,6 @@ Method | HTTP request | Description
 # **create_repository**
 > Repository create_repository(repository)
 
-
-
 Create a Repository resource.
 
 ### Example
@@ -88,8 +86,6 @@ No authorization required
 # **delete_repository**
 > Status delete_repository(name)
 
-
-
 Delete a Repository resource.
 
 ### Example
@@ -160,8 +156,6 @@ No authorization required
 # **get_repository**
 > Repository get_repository(name)
 
-
-
 Get a Repository resource.
 
 ### Example
@@ -231,8 +225,6 @@ No authorization required
 
 # **list_repositories**
 > RepositoryList list_repositories(var_continue=var_continue, label_selector=label_selector, field_selector=field_selector, limit=limit)
-
-
 
 List Repository resources.
 
@@ -310,8 +302,6 @@ No authorization required
 # **patch_repository**
 > Repository patch_repository(name, patch_request_inner)
 
-
-
 Patch a Repository resource.
 
 ### Example
@@ -386,8 +376,6 @@ No authorization required
 
 # **replace_repository**
 > Repository replace_repository(name, repository)
-
-
 
 Update a Repository resource.
 

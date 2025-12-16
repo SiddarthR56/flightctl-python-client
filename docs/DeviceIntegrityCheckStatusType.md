@@ -4,13 +4,13 @@ Status of the integrity check performed on the device.
 
 ## Enum
 
-* `UNKNOWN` (value: `'Unknown'`)
+* `DeviceIntegrityCheckStatusUnknown` (value: `'Unknown'`)
 
-* `UNSUPPORTED` (value: `'Unsupported'`)
+* `DeviceIntegrityCheckStatusUnsupported` (value: `'Unsupported'`)
 
-* `FAILED` (value: `'Failed'`)
+* `DeviceIntegrityCheckStatusFailed` (value: `'Failed'`)
 
-* `VERIFIED` (value: `'Verified'`)
+* `DeviceIntegrityCheckStatusVerified` (value: `'Verified'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

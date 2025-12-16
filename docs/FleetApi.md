@@ -21,8 +21,6 @@ Method | HTTP request | Description
 # **create_fleet**
 > Fleet create_fleet(fleet)
 
-
-
 Create a Fleet resource.
 
 ### Example
@@ -94,8 +92,6 @@ No authorization required
 # **delete_fleet**
 > Status delete_fleet(name)
 
-
-
 Delete a Fleet resource.
 
 ### Example
@@ -165,8 +161,6 @@ No authorization required
 
 # **delete_template_version**
 > Status delete_template_version(fleet, name)
-
-
 
 delete a template version
 
@@ -240,8 +234,6 @@ No authorization required
 # **get_fleet**
 > Fleet get_fleet(name, add_devices_summary=add_devices_summary)
 
-
-
 Get a Fleet resource.
 
 ### Example
@@ -314,8 +306,6 @@ No authorization required
 # **get_fleet_status**
 > Fleet get_fleet_status(name)
 
-
-
 read status of the specified Fleet
 
 ### Example
@@ -385,8 +375,6 @@ No authorization required
 
 # **get_template_version**
 > TemplateVersion get_template_version(fleet, name)
-
-
 
 read the specified template version
 
@@ -459,8 +447,6 @@ No authorization required
 
 # **list_fleets**
 > FleetList list_fleets(var_continue=var_continue, label_selector=label_selector, field_selector=field_selector, limit=limit, add_devices_summary=add_devices_summary)
-
-
 
 List Fleet resources.
 
@@ -540,8 +526,6 @@ No authorization required
 # **list_template_versions**
 > TemplateVersionList list_template_versions(fleet, var_continue=var_continue, label_selector=label_selector, field_selector=field_selector, limit=limit)
 
-
-
 list template versions
 
 ### Example
@@ -620,8 +604,6 @@ No authorization required
 # **patch_fleet**
 > Fleet patch_fleet(name, patch_request_inner)
 
-
-
 Patch a Fleet resource.
 
 ### Example
@@ -697,8 +679,6 @@ No authorization required
 # **patch_fleet_status**
 > Fleet patch_fleet_status(name, patch_request_inner)
 
-
-
 Patch the status of a Fleet resource.
 
 ### Example
@@ -772,8 +752,6 @@ No authorization required
 
 # **replace_fleet**
 > Fleet replace_fleet(name, fleet)
-
-
 
 Update a Fleet resource.
 
@@ -849,8 +827,6 @@ No authorization required
 
 # **replace_fleet_status**
 > Fleet replace_fleet_status(name, fleet)
-
-
 
 replace status of the specified Fleet
 

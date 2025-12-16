@@ -8,7 +8,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **conditions** | [**List[Condition]**](Condition.md) | Conditions represent the observations of a the current state of a device. | 
 **system_info** | [**DeviceSystemInfo**](DeviceSystemInfo.md) |  | 
-**applications** | [**List[DeviceApplicationStatus]**](DeviceApplicationStatus.md) | List of device application status. | 
+**systemd** | [**List[SystemdUnitStatus]**](SystemdUnitStatus.md) | List of systemd unit statuses. | [optional] 
+**applications** | [**List[DeviceApplicationStatus]**](DeviceApplicationStatus.md) | List of device application statuses. | 
 **applications_summary** | [**DeviceApplicationsSummaryStatus**](DeviceApplicationsSummaryStatus.md) |  | 
 **resources** | [**DeviceResourceStatus**](DeviceResourceStatus.md) |  | 
 **integrity** | [**DeviceIntegrityStatus**](DeviceIntegrityStatus.md) |  | 

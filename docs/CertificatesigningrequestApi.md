@@ -16,8 +16,6 @@ Method | HTTP request | Description
 # **create_certificate_signing_request**
 > CertificateSigningRequest create_certificate_signing_request(certificate_signing_request)
 
-
-
 Create a CertificateSigningRequest resource.
 
 ### Example
@@ -89,8 +87,6 @@ No authorization required
 # **delete_certificate_signing_request**
 > Status delete_certificate_signing_request(name)
 
-
-
 delete a Certificate Signing Request
 
 ### Example
@@ -161,8 +157,6 @@ No authorization required
 # **get_certificate_signing_request**
 > CertificateSigningRequest get_certificate_signing_request(name)
 
-
-
 read the specified certificateSigningRequest
 
 ### Example
@@ -232,8 +226,6 @@ No authorization required
 
 # **list_certificate_signing_requests**
 > CertificateSigningRequestList list_certificate_signing_requests(var_continue=var_continue, label_selector=label_selector, field_selector=field_selector, limit=limit)
-
-
 
 List CertificateSigningRequest resources.
 
@@ -311,8 +303,6 @@ No authorization required
 # **patch_certificate_signing_request**
 > CertificateSigningRequest patch_certificate_signing_request(name, patch_request_inner)
 
-
-
 Patch a CertificateSigningRequest resource.
 
 ### Example
@@ -388,8 +378,6 @@ No authorization required
 # **replace_certificate_signing_request**
 > CertificateSigningRequest replace_certificate_signing_request(name, certificate_signing_request)
 
-
-
 replace the specified CertificateSigningRequest
 
 ### Example
@@ -464,8 +452,6 @@ No authorization required
 
 # **update_certificate_signing_request_approval**
 > CertificateSigningRequest update_certificate_signing_request_approval(name, certificate_signing_request)
-
-
 
 Approve or deny a CertificateSigningRequest.
 
